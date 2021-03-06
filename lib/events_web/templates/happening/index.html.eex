@@ -1,0 +1,30 @@
+<h1>Listing Happenings</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for happening <- @happenings do %>
+    <tr>
+      <td><%= happening.name %></td>
+      <td><%= happening.date %></td>
+      <td><%= happening.description %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.happening_path(@conn, :show, happening) %></span>
+        <span><%= link "Edit", to: Routes.happening_path(@conn, :edit, happening) %></span>
+        <span><%= link "Delete", to: Routes.happening_path(@conn, :delete, happening), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Happening", to: Routes.happening_path(@conn, :new) %></span>
