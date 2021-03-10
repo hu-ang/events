@@ -4,27 +4,35 @@
 export SECRET_KEY_BASE=insecure
 export MIX_ENV=prod
 export PORT=4567
-
-DB_PASS=`pwd`/cfg/.db_pass
-if [ ! -e "$DB_PASS" ]; then
-	echo "Setup database"
-	exit 1
-fi
-
-export DATABASE_IRL=ecto://events_db:`cat $DB_PASS`/events
+export DATABASE_URL=ecto://events:bad@localhost/events_prod
 
 mix deps.get --only prod
 mix compile
 
-KEY=`pwd`/cfg/.base
 
-if [ ! -e "$KEY" ]; then
-	mix phx.gen.secret > "$KEY"
+CFGD=$(readlink -f ~/.config/events)
+echo "$CFGD"
+
+if [ ! -d "$CFGD" ]; then
+	echo "!!!!!!!!!!!!!Where is this dierectory?!?!"
+	mkdir -p "$CFGD"
+
 fi
 
-SECRET_KEY_BASE=$(cat "$KEY")
+if [ ! -e "$CFGD/base" ]; then
+	mix phx.gen.secret > "$CFGD/base"
+fi
+
+if [ ! -e "$CFGD/db_pass" ]; then
+        pwgen 12 1 > "$CFGD/db_pass"
+fi
+
+SECRET_KEY_BASE=$(cat "$CFGD/base")
 export SECRET_KEY_BASE
 
+DB_PASS=$(cat "$CFGD/db_pass")
+export DATABASE_URL=ecto://events:$DB_PASS@localhost/events_prod
+mix ecto.create
 mix ecto.migrate
 npm install --prefix ./assets
 npm run deploy --prefix ./assets

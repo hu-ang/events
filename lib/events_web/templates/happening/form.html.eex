@@ -12,7 +12,7 @@
 
     <div id="format_date">
     <%= label f, :date %>
-    <%= text_input f, :date, class: "form-control" %>
+    <%= date_input f, :date, class: "form-control" %>
     <%= error_tag f, :date %>
     </div>
 
