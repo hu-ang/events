@@ -10,11 +10,9 @@
     <%= text_input f, :name, class: "form-control" %>
     <%= error_tag f, :name %>
 
-    <div id="format_date">
     <%= label f, :date %>
-    <%= date_input f, :date, class: "form-control" %>
+    <%= text_input f, :date, id: "format_date", class: "form-control" %>
     <%= error_tag f, :date %>
-    </div>
 
     <%= label f, :description %>
     <%= textarea f, :description, class: "form-control" %>

@@ -1,4 +1,4 @@
-defmodule EventsWeb.Plugs.FetchSession do
+defmodule EventsWeb.Plugs.FetchSessions do
     import Plug.Conn
     #based on the class notes
     def init(args), do: args

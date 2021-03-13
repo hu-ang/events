@@ -14,15 +14,22 @@
     <div role="main" class="container">
      <div class="row">
         <div class="col my-2">
+          <p><%= link "Home", to: "/" %>
           <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
             <p><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
           <% end %>
+          </p>
         </div>
         <%= if @conn.assigns[:current_user] do %>
           <div class="col">
             User: <%= @current_user.name %> |
             <%= link("Logout", to: Routes.session_path(@conn, :delete),
               method: :delete) %>
+            <%= link "Profile", to: Routes.user_path(@conn, :show, @current_user) %>
+          </div>
+          <div class="col my-2">
+            <a href="/happenings">Happenings</a>
+            <a href="/users">Profiles</a>
           </div>
         <% else %>
           <div class="col">
@@ -34,9 +41,6 @@
           </div>
           <div class="col my-2">
             <p><%= link "Register", to: Routes.user_path(@conn, :new) %></p>
-          </div>
-          <div class="col my-2">
-            <a href="/happenings">Happenings</a>
           </div>
         <% end %>
       </div>

@@ -14,7 +14,9 @@ import "phoenix_html";
 // import $ from "jquery";
 
 window.jQuery = window.$ = require('jquery');
-window.flatpickr = require('flatpickr');
+// window.flatpickr = require('flatpickr');
+import flatpickr from 'flatpickr';
+flatpickr('#format_date', {enableTime: true, dateFormat: "Y-m-d H:i"});
 
 // $('#date_format').datepicker({format:"yyyy-mm-dd"});
 
@@ -28,14 +30,16 @@ window.flatpickr = require('flatpickr');
 //     import socket from "./socket"
 //
 
-$(document).ready(() => {
-    $("#date_format").flatpickr({
-        noCalendar: false,
-        enableTime: true,
-        allowInput: true, 
-        dateFormat: 'M d, Y h i K'
-    })
-})
+// $(document).ready(() => {
+//     $("#date_format").flatpickr({
+//         noCalendar: false,
+//         enableTime: true,
+//         allowInput: true, 
+//         dateFormat: 'M d, Y h i K'
+//     })
+// })
+
+// $('#format_date').datepicker();
 
 // $("#date_format").flatpickr();
 // flatpickr("#date_format", {});

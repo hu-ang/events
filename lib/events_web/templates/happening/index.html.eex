@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Date</th>
+      <th>Owner</th>
       <th>Description</th>
 
       <th></th>
@@ -15,12 +16,21 @@
     <tr>
       <td><%= happening.name %></td>
       <td><%= happening.date %></td>
-      <td><%= happening.description %></td>
+      <td><%= happening.user.name %>
+      <img src="<%= Routes.user_path(@conn, :photo, happening.user.id) %>" 
+      alt="" 
+      width="30"
+      height="30"></td>
+      <td><%= happening.description %> </td>
 
       <td>
-        <span><%= link "Show", to: Routes.happening_path(@conn, :show, happening) %></span>
-        <span><%= link "Edit", to: Routes.happening_path(@conn, :edit, happening) %></span>
-        <span><%= link "Delete", to: Routes.happening_path(@conn, :delete, happening), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <span><%= link "Details", to: Routes.happening_path(@conn, :show, happening) %></span>
+        <%= if current_user_is?(@conn, happening.user_id) do%>
+          <span><%= link "Edit", to: Routes.happening_path(@conn, :edit, happening) %></span>
+        <% end %>
+        <%= if current_user_is?(@conn, happening.user_id) do%>
+          <span><%= link "Delete", to: Routes.happening_path(@conn, :delete, happening), method: :delete, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
       </td>
     </tr>
 <% end %>

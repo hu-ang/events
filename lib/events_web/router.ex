@@ -7,7 +7,7 @@ defmodule EventsWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug EventsWeb.Plugs.FetchSession
+    plug EventsWeb.Plugs.FetchSessions
   end
 
   pipeline :api do
@@ -18,7 +18,9 @@ defmodule EventsWeb.Router do
     pipe_through :browser
     get "/", PageController, :index
     resources "/users", UserController
+    get "/users/:id/photo", UserController, :photo
     resources "/happenings", HappeningController
+    resources "/comments", CommentController
     resources "/sessions", SessionController, 
     only: [:create, :delete], singleton: true
   end

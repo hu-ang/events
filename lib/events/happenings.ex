@@ -19,6 +19,7 @@ defmodule Events.Happenings do
   """
   def list_happenings do
     Repo.all(Happening)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +36,14 @@ defmodule Events.Happenings do
       ** (Ecto.NoResultsError)
 
   """
-  def get_happening!(id), do: Repo.get!(Happening, id)
+  def get_happening!(id) do 
+    Repo.get!(Happening, id) 
+    |> Repo.preload(:user)
+  end
+
+  def load_comments(%Happening{} = happening) do
+    Repo.preload(happening, [comments: :user])
+  end
 
   @doc """
   Creates a happening.
